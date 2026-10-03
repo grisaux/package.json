@@ -1,9 +1,9 @@
 {
   "name": "bot-transporte-nube",
   "version": "1.0.0",
+  "description": "Bot de beneficios para transporte",
   "main": "bot.js",
   "scripts": {
-    "build": "npx puppeteer browsers install chrome",
     "start": "node bot.js"
   },
   "dependencies": {
