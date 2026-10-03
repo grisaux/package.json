@@ -15,17 +15,22 @@ const client = new Client({
     }
 });
 
-// Forzamos al sistema a generar un código QR pequeño y junto
+// TRUCO DEFINITIVO: Obliga a los bloques de texto a unirse cancelando el espaciado de Render
 client.on('qr', (qr) => {
-    qrcode.generate(qr, { small: true });
-    console.log('--- NUEVO QR GENERADO ---');
+    console.log('--- GENERANDO QR ULTRA COMPACTO ---');
+    qrcode.generate(qr, { small: true }, (qrcodeStr) => {
+        const qrCorregido = qrcodeStr
+            .split('\n')
+            .map(linea => linea.replace(/ /g, '█')) 
+            .join('\n');
+        console.log(qrCorregido);
+    });
 });
 
 client.on('ready', () => {
     console.log('--- BOT ACTIVO Y ESCUCHANDO ---');
 });
 
-// Captura tanto tus propios mensajes del auto-chat como los de terceros
 client.on('message_create', async msg => {
     const mensajeRecibido = msg.body.toLowerCase();
 
